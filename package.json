@@ -1,0 +1,23 @@
+{
+  "name": "mapil2geojson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard *.js ",
+    "fix": "standard --fix *.js "
+  },
+  "bin": {
+    "mapil2geojson": "index.js"
+  },
+  "author": "rub21 <ruben@mapbox.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@mapbox/tile-cover": "^3.0.2",
+    "@turf/turf": "^4.7.3",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
