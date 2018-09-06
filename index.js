@@ -27,9 +27,18 @@ for (var i = 0; i < geojson.features.length; i++) {
   urls.push(url)
 }
 var k = 0
-fs.writeFile(outputFile, '', function (err) {
-  if (err) { console.error(err) }
-})
+
+//Lets check if the files exist
+fs.exists(outputFile, function(exists) {
+  if (!exists) {
+    fs.writeFile(outputFile, '', function (err) {
+      if (err) { console.error(err) }
+    })
+  }else{
+    console.log('The file exists, the script will continue adding the outputs there.')
+  }
+});
+
 function getObjs (url) {
   if (url) {
     console.log('GET ' + (k + 1) + '/' + urls.length) // + ' ==>' + url
