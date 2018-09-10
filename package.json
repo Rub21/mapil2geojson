@@ -1,5 +1,5 @@
 {
-  "name": "mapil2geojson",
+  "name": "mapillary2json",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,9 +8,9 @@
     "fix": "standard --fix *.js "
   },
   "bin": {
-    "mapil2geojson": "index.js"
+    "mapillary2json": "index.js"
   },
-  "author": "rub21 <ruben@mapbox.com>",
+  "author": "rub21",
   "license": "ISC",
   "dependencies": {
     "@mapbox/tile-cover": "^3.0.2",
