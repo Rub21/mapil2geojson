@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard *.js ",
-    "fix": "standard --fix *.js "
+    "format": "./node_modules/.bin/prettier --single-quote --write --print-width 100 *.js"
   },
   "bin": {
     "mapillary2json": "index.js"
@@ -15,9 +15,10 @@
   "dependencies": {
     "@mapbox/tile-cover": "^3.0.2",
     "@turf/turf": "^4.7.3",
+    "bluebird": "^3.7.2",
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
+    "prettier": "^1.14.3"
   }
 }
