@@ -40,23 +40,7 @@ Promise.map(urls, function(url) {
       .flat(1);
     // Print output
     if (argv.output === 'csv') {
-      console.log(`image_key,sequence,username,lat,lon`);
-      let imgs = {};
-      sequences.forEach(sequence => {
-        for (let i = 0; i < sequence.properties.coordinateProperties.image_keys.length; i++) {
-          if (
-            sequence.properties.coordinateProperties.image_keys[i] &&
-            sequence.geometry.coordinates[i]
-          ) {
-            imgs[sequence.properties.coordinateProperties.image_keys[i]] = `${
-              sequence.properties.key
-            },${sequence.properties.username},${sequence.geometry.coordinates[i].join(',')}`;
-          }
-        }
-      });
-      Object.keys(imgs).forEach(key => {
-        console.log(key, imgs[im]);
-      });
+      printCVS(sequences);
     } else {
       console.log(JSON.stringify(turf.featureCollection(sequences)));
     }
@@ -64,3 +48,23 @@ Promise.map(urls, function(url) {
   .catch(function(err) {
     console.log(err);
   });
+
+function printCVS(sequences) {
+  console.log(`image_key,sequence,username,lat,lon`);
+  let imgs = {};
+  sequences.forEach(sequence => {
+    for (let i = 0; i < sequence.properties.coordinateProperties.image_keys.length; i++) {
+      if (
+        sequence.properties.coordinateProperties.image_keys[i] &&
+        sequence.geometry.coordinates[i]
+      ) {
+        imgs[sequence.properties.coordinateProperties.image_keys[i]] = `${
+          sequence.properties.key
+        },${sequence.properties.username},${sequence.geometry.coordinates[i].join(',')}`;
+      }
+    }
+  });
+  Object.keys(imgs).forEach(key => {
+    console.log(key, imgs[key]);
+  });
+}
