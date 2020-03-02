@@ -42,7 +42,9 @@ Promise.map(urls, function(url) {
     if (argv.output === 'csv') {
       printCVS(sequences);
     } else {
-      console.log(JSON.stringify(turf.featureCollection(sequences)));
+
+
+      // console.log(JSON.stringify(turf.featureCollection(sequences)));
     }
   })
   .catch(function(err) {
