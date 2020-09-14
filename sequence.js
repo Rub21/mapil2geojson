@@ -27,27 +27,24 @@ for (let i = 0; i < coverage.features.length; i++) {
   urls.push(url + props.join('&'));
 }
 
-Promise.map(urls, function(url) {
-  return request.getAsync(url).spread(function(response, body) {
+Promise.map(urls, function (url) {
+  return request.getAsync(url).spread(function (response, body) {
     return [JSON.parse(body), url];
   });
 })
-  .then(function(response) {
+  .then(function (response) {
     sequences = response
       .map(res => {
         return res[0].features;
       })
       .flat(1);
-    // Print output
     if (argv.output === 'csv') {
       printCVS(sequences);
     } else {
-
-
-      // console.log(JSON.stringify(turf.featureCollection(sequences)));
+      printGeoJSON(turf.featureCollection(sequences))
     }
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.log(err);
   });
 
@@ -62,11 +59,22 @@ function printCVS(sequences) {
       ) {
         imgs[sequence.properties.coordinateProperties.image_keys[i]] = `${
           sequence.properties.key
-        },${sequence.properties.username},${sequence.geometry.coordinates[i].join(',')}`;
+          },${sequence.properties.username},${sequence.geometry.coordinates[i].join(',')}`;
       }
     }
   });
   Object.keys(imgs).forEach(key => {
     console.log(key, imgs[key]);
   });
+}
+
+function printGeoJSON(geojson) {
+  let obj = {}
+  geojson.features = geojson.features.map(function (feature) {
+    feature.properties.captured_at = (new Date(feature.properties.captured_at).getTime() / 1000);
+    feature.properties.created_at = (new Date(feature.properties.created_at).getTime() / 1000);
+    obj[feature.properties.key] = feature
+    return feature;
+  });
+  console.log(JSON.stringify(turf.featureCollection(Object.values(obj))));
 }

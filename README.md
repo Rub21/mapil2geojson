@@ -1,6 +1,6 @@
 # Mapillary objects to geojson
 
-## Istall
+## Install
 
 ```
 git clone git@github.com:Rub21/mapillary2json.git
