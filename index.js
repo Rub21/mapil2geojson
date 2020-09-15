@@ -23,7 +23,8 @@ var geojson = cover.geojson(poly.features[0].geometry, limits)
 var urls = []
 for (var i = 0; i < geojson.features.length; i++) {
   var bbox = turf.bbox(geojson.features[i])
-  var url = 'https://a.mapillary.com/v3/objects?client_id=T1Fzd20xZjdtR0s1VDk5OFNIOXpYdzoxNDYyOGRkYzUyYTFiMzgz&bbox=' + bbox.join(',')
+  var url = 'https://a.mapillary.com/v3/images?client_id=xxx&bbox=' + bbox.join(',')
+  console.log(url);
   urls.push(url)
 }
 var k = 0
@@ -48,10 +49,10 @@ function getObjs (url) {
       } else {
         var objTile = JSON.parse(body)
         for (var i = 0; i < objTile.features.length; i++) {
-          if (objTile.features[i].properties && objTile.features[i].properties.value.indexOf('turn') > -1 && objTile.features[i].properties.value.indexOf('regulatory') > -1) {
+          if (objTile.features[i] && objTile.features[i].properties) {
             fs.appendFile(outputFile, JSON.stringify(objTile.features[i]) + '\n', function (err) {
               if (err) { console.error(err) }
-              console.log('added!')
+              // console.log('added!')
             })
           }
         }

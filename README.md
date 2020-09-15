@@ -1,6 +1,8 @@
-# Mapillary objects to geojson
+# Mapillary objects to JSON
 
-## Istall
+Script for getting mapillary features in a JSON files for an area
+
+## Install
 
 ```
 git clone git@github.com:Rub21/mapillary2json.git
@@ -14,9 +16,9 @@ npm link
 mapillary2json <imput file> <output file> <opts>
 ```
 
-e.g 
+e.g
 
 ```
-mapillary2json map.geojson out.json --zoom 15
-
+mapillary2json map.geojson output.json --zoom 15
+cat output.json | jq '{"type":"FeatureCollection","features":.}' --slurp -c  > output.geojson
 ```
