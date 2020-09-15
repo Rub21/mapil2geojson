@@ -8,6 +8,7 @@ var turf = require('@turf/turf')
 var request = require('request')
 var inputFile = argv._[0]
 var outputFile = argv._[1]
+var MAPILLARY_CLIENT_ID = process.env.CLIENT_ID || '...'
 var opts = {}
 for (var tag in argv) {
   if (tag !== '_') {
@@ -23,24 +24,24 @@ var geojson = cover.geojson(poly.features[0].geometry, limits)
 var urls = []
 for (var i = 0; i < geojson.features.length; i++) {
   var bbox = turf.bbox(geojson.features[i])
-  var url = 'https://a.mapillary.com/v3/images?client_id=xxx&bbox=' + bbox.join(',')
+  var url = 'https://a.mapillary.com/v3/images?client_id=' + MAPILLARY_CLIENT_ID + '&bbox=' + bbox.join(',')
   console.log(url);
   urls.push(url)
 }
 var k = 0
 
 //Lets check if the files exist
-fs.exists(outputFile, function(exists) {
+fs.exists(outputFile, function (exists) {
   if (!exists) {
     fs.writeFile(outputFile, '', function (err) {
       if (err) { console.error(err) }
     })
-  }else{
+  } else {
     console.log('The file exists, the script will continue adding the outputs there.')
   }
 });
 
-function getObjs (url) {
+function getObjs(url) {
   if (url) {
     console.log('GET ' + (k + 1) + '/' + urls.length) // + ' ==>' + url
     request(url, function (error, response, body) {

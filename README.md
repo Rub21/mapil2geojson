@@ -13,6 +13,7 @@ npm link
 ## Usage
 
 ```
+export MAPILLARY_CLIENT_ID=xyz...
 mapillary2json <imput file> <output file> <opts>
 ```
 
